@@ -1,0 +1,38 @@
+{
+  "name": "iban-to-bic",
+  "version": "1.0.0",
+  "description": "Determines the SWIFT BIC of an IBAN.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx jest",
+    "generate": "node ./src/generate.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sigalor/iban-to-bic.git"
+  },
+  "keywords": [
+    "bic",
+    "iban",
+    "swift",
+    "banking"
+  ],
+  "author": "sigalor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sigalor/iban-to-bic/issues"
+  },
+  "homepage": "https://github.com/sigalor/iban-to-bic#readme",
+  "devDependencies": {
+    "fs-extra": "^10.0.0",
+    "iconv-lite": "^0.6.3",
+    "jest": "^27.0.6",
+    "jsdom": "^16.6.0",
+    "neat-csv": "^6.0.1",
+    "node-fetch": "^2.6.1",
+    "xlsx": "^0.17.0"
+  },
+  "dependencies": {
+    "ibantools": "^3.3.0"
+  }
+}
