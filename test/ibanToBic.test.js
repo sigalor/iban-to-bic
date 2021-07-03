@@ -5,6 +5,10 @@ test('determines the correct BIC for an Austrian IBAN', () => {
   expect(ibanToBic('AT781400039828399259')).toBe('BAWAATWWXXX');
 });
 
+test('determines the correct BIC for a Belgian IBAN', () => {
+  expect(ibanToBic('BE16897275256574')).toBe('VDSPBE91');
+});
+
 test('determines the correct BIC for a German IBAN', () => {
   expect(ibanToBic('DE51500105179975341634')).toBe('INGDDEFFXXX');
 });

@@ -27,7 +27,7 @@ async function writeOutputs(name, bankCodesObj) {
     if (bic) prev[code] = bic;
     else if (branches && branches[0] && branches[0].bic) prev[code] = branches[0].bic;
 
-    if (prev[code]) assert(ibantools.isValidBIC(prev[code]));
+    if (prev[code]) assert(ibantools.isValidBIC(prev[code]), 'invalid BIC: ' + prev[code]);
 
     return prev;
   }, {});
