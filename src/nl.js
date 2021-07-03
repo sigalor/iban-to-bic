@@ -1,8 +1,5 @@
 const assert = require('assert');
-const fetch = require('node-fetch');
-const xlsx = require('xlsx');
-
-const { getCellValue, writeOutputs } = require('./utils');
+const { getCellValue, writeOutputs, downloadXLSX } = require('./utils');
 
 function rowToObject(worksheet, row) {
   const col = n => getCellValue(worksheet, n, row);
@@ -14,10 +11,10 @@ function rowToObject(worksheet, row) {
 }
 
 module.exports = async () => {
-  const worksheet = xlsx.read(
-    await (await fetch('https://www.betaalvereniging.nl/wp-content/uploads/BIC-lijst-NL.xlsx')).buffer(),
-    { type: 'buffer' },
-  ).Sheets['BIC-lijst'];
+  const worksheet = await downloadXLSX(
+    'https://www.betaalvereniging.nl/wp-content/uploads/BIC-lijst-NL.xlsx',
+    'BIC-lijst',
+  );
 
   assert.strictEqual(worksheet['A1'].v, 'BIC-lijst-NL');
   assert.strictEqual(worksheet['A4'].v, 'BIC');

@@ -1,9 +1,5 @@
 const assert = require('assert');
-const xlsx = require('xlsx');
-const { JSDOM } = require('jsdom');
-const fetch = require('node-fetch');
-
-const { getCellValue, writeOutputs } = require('./utils');
+const { getCellValue, writeOutputs, downloadXLSX, downloadJSDOM } = require('./utils');
 
 function rowToObject(worksheet, row) {
   const col = n => getCellValue(worksheet, n, row);
@@ -18,13 +14,9 @@ function rowToObject(worksheet, row) {
 }
 
 async function getWorksheet() {
-  const document = new JSDOM(
-    await (
-      await fetch(
-        'https://www.bundesbank.de/de/aufgaben/unbarer-zahlungsverkehr/serviceangebot/bankleitzahlen/download-bankleitzahlen-602592',
-      )
-    ).text(),
-  ).window.document;
+  const document = await downloadJSDOM(
+    'https://www.bundesbank.de/de/aufgaben/unbarer-zahlungsverkehr/serviceangebot/bankleitzahlen/download-bankleitzahlen-602592',
+  );
 
   let box;
   const headlines = document.getElementsByClassName('linklist__headline mt-4');
@@ -36,7 +28,7 @@ async function getWorksheet() {
   }
 
   const url = 'https://www.bundesbank.de' + box.getElementsByTagName('a')[1].getAttribute('href');
-  return xlsx.read(await (await fetch(url)).buffer(), { type: 'buffer' }).Sheets.Daten;
+  return downloadXLSX(url, 'Daten');
 }
 
 module.exports = async () => {

@@ -1,6 +1,9 @@
 const assert = require('assert');
 const path = require('path');
 const fs = require('fs-extra');
+const fetch = require('node-fetch');
+const xlsx = require('xlsx');
+const { JSDOM } = require('jsdom');
 
 // maps column index starting at 0 to A,...,Z,AA,AB,...,ZY,ZZ
 function columnCode(col) {
@@ -28,4 +31,13 @@ async function writeOutputs(name, bankCodesObj) {
   await fs.writeJSON(path.join(__dirname, `../datasets/${name}.json`), bankCodesToBic);
 }
 
-module.exports = { columnCode, getCellValue, writeOutputs };
+async function downloadXLSX(url, sheet) {
+  const doc = xlsx.read(await (await fetch(url)).buffer(), { type: 'buffer' });
+  return sheet ? doc.Sheets[sheet] : doc;
+}
+
+async function downloadJSDOM(url) {
+  return new JSDOM(await (await fetch(url)).text()).window.document;
+}
+
+module.exports = { columnCode, getCellValue, writeOutputs, downloadXLSX, downloadJSDOM };
