@@ -13,6 +13,7 @@ module.exports = {
     let bankCode;
     if (country === 'AT') bankCode = iban.substr(4, 5);
     else if (country === 'DE') bankCode = iban.substr(4, 8);
+    else if (country === 'NL') bankCode = iban.substr(4, 4);
     if (!bankCode) return;
 
     return datasets[country][bankCode];
