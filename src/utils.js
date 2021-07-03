@@ -10,6 +10,12 @@ function columnCode(col) {
   return letter(Math.floor(col / 26) - 1) + letter(col % 26);
 }
 
+// col counted from 0, row counted from 1
+function getCellValue(worksheet, col, row) {
+  const v = worksheet[`${columnCode(col)}${row}`];
+  return v ? v.v : v;
+}
+
 async function writeOutputs(name, bankCodesObj) {
   await fs.writeJSON(path.join(__dirname, `../datasets-extended/${name}.json`), bankCodesObj);
 
@@ -22,4 +28,4 @@ async function writeOutputs(name, bankCodesObj) {
   await fs.writeJSON(path.join(__dirname, `../datasets/${name}.json`), bankCodesToBic);
 }
 
-module.exports = { columnCode, writeOutputs };
+module.exports = { columnCode, getCellValue, writeOutputs };

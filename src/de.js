@@ -3,13 +3,10 @@ const xlsx = require('xlsx');
 const { JSDOM } = require('jsdom');
 const fetch = require('node-fetch');
 
-const { columnCode, writeOutputs } = require('./utils');
+const { getCellValue, writeOutputs } = require('./utils');
 
 function rowToObject(worksheet, row) {
-  const col = n => {
-    const v = worksheet[`${columnCode(n)}${row}`];
-    return v ? v.v : v;
-  };
+  const col = n => getCellValue(worksheet, n, row);
   return {
     code: col(0), // Bankleitzahl
     hasOwnCode: col(1) === 1, // bankleitzahlführender Zahlungsdienstleister or not
