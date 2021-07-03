@@ -1,6 +1,6 @@
 {
   "name": "iban-to-bic",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Determines the SWIFT BIC of an IBAN.",
   "main": "index.js",
   "scripts": {
