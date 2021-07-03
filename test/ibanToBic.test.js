@@ -13,6 +13,10 @@ test('determines the correct BIC for a German IBAN', () => {
   expect(ibanToBic('DE51500105179975341634')).toBe('INGDDEFFXXX');
 });
 
+test('determines the correct BIC for a Luxembourgish IBAN', () => {
+  expect(ibanToBic('LU280102886838719723')).toBe('FOTNLULL');
+});
+
 test('determines the correct BIC for a Dutch IBAN', () => {
   expect(ibanToBic('NL52ABNA9565235778')).toBe('ABNANL2A');
 });
