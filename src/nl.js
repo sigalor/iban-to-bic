@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { getCellValue, writeOutputs, downloadXLSX } = require('./utils');
+const { getCellValue, writeOutputs, downloadXLSX, assertTableHead } = require('./utils');
 
 function rowToObject(worksheet, row) {
   const col = n => getCellValue(worksheet, n, row);
@@ -17,9 +17,7 @@ module.exports = async () => {
   );
 
   assert.strictEqual(worksheet['A1'].v, 'BIC-lijst-NL');
-  assert.strictEqual(worksheet['A4'].v, 'BIC');
-  assert.strictEqual(worksheet['B4'].v, 'Identifier');
-  assert.strictEqual(worksheet['C4'].v, 'Naam betaaldienstverlener');
+  assertTableHead(worksheet, 4, ['BIC', 'Identifier', 'Naam betaaldienstverlener']);
 
   const bankCodesObj = {};
   for (let i = 5; worksheet['A' + i] !== undefined; i++) {

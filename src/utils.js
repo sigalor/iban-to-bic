@@ -4,6 +4,7 @@ const fs = require('fs-extra');
 const fetch = require('node-fetch');
 const xlsx = require('xlsx');
 const { JSDOM } = require('jsdom');
+const ibantools = require('ibantools');
 
 // maps column index starting at 0 to A,...,Z,AA,AB,...,ZY,ZZ
 function columnCode(col) {
@@ -25,6 +26,9 @@ async function writeOutputs(name, bankCodesObj) {
   const bankCodesToBic = Object.entries(bankCodesObj).reduce((prev, [code, { bic, branches }]) => {
     if (bic) prev[code] = bic;
     else if (branches && branches[0] && branches[0].bic) prev[code] = branches[0].bic;
+
+    if (prev[code]) assert(ibantools.isValidBIC(prev[code]));
+
     return prev;
   }, {});
 
@@ -40,4 +44,10 @@ async function downloadJSDOM(url) {
   return new JSDOM(await (await fetch(url)).text()).window.document;
 }
 
-module.exports = { columnCode, getCellValue, writeOutputs, downloadXLSX, downloadJSDOM };
+function assertTableHead(worksheet, row, values) {
+  for (let i = 0; i < values.length; i++) {
+    assert.strictEqual(getCellValue(worksheet, i, row), values[i]);
+  }
+}
+
+module.exports = { columnCode, getCellValue, writeOutputs, downloadXLSX, downloadJSDOM, assertTableHead };
