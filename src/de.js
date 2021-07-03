@@ -3,15 +3,7 @@ const xlsx = require('xlsx');
 const { JSDOM } = require('jsdom');
 const fetch = require('node-fetch');
 
-const { writeOutputs } = require('./utils');
-
-// maps column index starting at 0 to A,...,Z,AA,AB,...,ZY,ZZ
-function columnCode(col) {
-  assert(col >= 0 && col < 26 + 26 * 26);
-  const letter = n => String.fromCharCode(n + 'A'.charCodeAt(0));
-  if (col < 26) return letter(col);
-  return letter(Math.floor(col / 26) - 1) + letter(col % 26);
-}
+const { columnCode, writeOutputs } = require('./utils');
 
 function rowToObject(worksheet, row) {
   const col = n => {

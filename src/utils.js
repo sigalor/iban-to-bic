@@ -1,5 +1,14 @@
+const assert = require('assert');
 const path = require('path');
 const fs = require('fs-extra');
+
+// maps column index starting at 0 to A,...,Z,AA,AB,...,ZY,ZZ
+function columnCode(col) {
+  assert(col >= 0 && col < 26 + 26 * 26);
+  const letter = n => String.fromCharCode(n + 'A'.charCodeAt(0));
+  if (col < 26) return letter(col);
+  return letter(Math.floor(col / 26) - 1) + letter(col % 26);
+}
 
 async function writeOutputs(name, bankCodesObj) {
   await fs.writeJSON(path.join(__dirname, `../datasets-extended/${name}.json`), bankCodesObj);
@@ -13,4 +22,4 @@ async function writeOutputs(name, bankCodesObj) {
   await fs.writeJSON(path.join(__dirname, `../datasets/${name}.json`), bankCodesToBic);
 }
 
-module.exports = { writeOutputs };
+module.exports = { columnCode, writeOutputs };
