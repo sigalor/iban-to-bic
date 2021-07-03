@@ -1,9 +1,9 @@
 const assert = require('assert');
-const path = require('path');
-const fs = require('fs-extra');
 const xlsx = require('xlsx');
 const { JSDOM } = require('jsdom');
 const fetch = require('node-fetch');
+
+const { writeOutputs } = require('./utils');
 
 // maps column index starting at 0 to A,...,Z,AA,AB,...,ZY,ZZ
 function columnCode(col) {
@@ -104,13 +104,5 @@ module.exports = async () => {
     bankCodesObj[c.code] = c;
   });
 
-  await fs.writeJSON(path.join(__dirname, '../datasets-extended/de.json'), bankCodesObj);
-
-  const bankCodesToBic = Object.entries(bankCodesObj).reduce((prev, [code, { bic, branches }]) => {
-    if (bic) prev[code] = bic;
-    else if (branches && branches[0].bic) prev[code] = branches[0].bic;
-    return prev;
-  }, {});
-
-  await fs.writeJSON(path.join(__dirname, '../datasets/de.json'), bankCodesToBic);
+  await writeOutputs('de', bankCodesObj);
 };

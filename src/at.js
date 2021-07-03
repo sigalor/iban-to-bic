@@ -1,9 +1,9 @@
 const assert = require('assert');
-const path = require('path');
-const fs = require('fs-extra');
 const fetch = require('node-fetch');
 const iconv = require('iconv-lite');
 const neatCsv = require('neat-csv');
+
+const { writeOutputs } = require('./utils');
 
 module.exports = async () => {
   const csvLines = iconv
@@ -51,12 +51,5 @@ module.exports = async () => {
     return out;
   }, {});
 
-  await fs.writeJSON(path.join(__dirname, '../datasets-extended/at.json'), bankCodesObj);
-
-  const bankCodesToBic = Object.entries(bankCodesObj).reduce((prev, [code, { bic }]) => {
-    if (bic) prev[code] = bic;
-    return prev;
-  }, {});
-
-  await fs.writeJSON(path.join(__dirname, '../datasets/at.json'), bankCodesToBic);
+  await writeOutputs('at', bankCodesObj);
 };
