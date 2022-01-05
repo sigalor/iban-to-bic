@@ -2,6 +2,10 @@ const ibantools = require('ibantools');
 const datasets = require('./datasets');
 
 module.exports = {
+  ibanIsValid(iban) {
+    iban = ibantools.electronicFormatIBAN(iban);
+    return ibantools.isValidIBAN(iban);
+  },
   ibanToBic(iban) {
     iban = ibantools.electronicFormatIBAN(iban);
     if (!ibantools.isValidIBAN(iban)) return;
