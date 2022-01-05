@@ -12,16 +12,20 @@ function rowToObject(worksheet, row) {
 }
 
 async function getWorksheet() {
-  const document = await downloadJSDOM('https://www.abbl.lu/topic/iban-and-bic-codes/');
+  const document = await downloadJSDOM('https://abbl.lu/en/professionals/page/iban-and-bic-codes');
 
   let url;
   const links = document.getElementsByTagName('a');
   for (let i = 0; i < links.length; i++) {
     const currUrl = links[i].getAttribute('href');
-    if (links[i].innerHTML.startsWith('IBAN_BIC_CODES_LUX_') && currUrl.endsWith('.xlsx')) {
+    if (currUrl.includes('IBAN_BIC_CODES_LUX_') && currUrl.endsWith('.xlsx')) {
       url = currUrl;
       break;
     }
+  }
+  
+  if (url.startsWith('/') && !url.startsWith('//')) {
+	  url = 'https://abbl.lu' + url;
   }
 
   return downloadXLSX(url, 'Organizations');
