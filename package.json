@@ -1,9 +1,8 @@
 {
   "name": "iban-to-bic",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Determines the SWIFT BIC of an IBAN.",
-  "main": "index.js",
-  "browser": "dist/iban-to-bic.js",
+  "browser": "index.js",
   "scripts": {
     "test": "npx jest",
     "build": "webpack",
@@ -28,13 +27,13 @@
   "devDependencies": {
     "fs-extra": "^10.0.0",
     "iconv-lite": "^0.6.3",
-    "jest": "^27.0.6",
+    "jest": "^27.4.7",
     "jsdom": "^16.6.0",
     "neat-csv": "^6.0.1",
     "node-fetch": "^2.6.1",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1",
-    "xlsx": "^0.17.0"
+    "xlsx": "^0.17.5"
   },
   "dependencies": {
     "ibantools": "^3.3.0"

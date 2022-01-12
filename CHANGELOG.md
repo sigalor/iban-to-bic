@@ -1,3 +1,7 @@
+# 1.2.1 (2022-01-12)
+
+- fix `browser` field in package.json
+
 # 1.2.0 (2022-01-05)
 
 - updated datasets, fixed Luxembourg scraper (Csardelacal) [#1](https://github.com/sigalor/iban-to-bic/pull/1)
