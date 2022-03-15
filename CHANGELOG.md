@@ -1,3 +1,7 @@
+# 1.2.2 (2022-03-15)
+
+- updated datasets
+
 # 1.2.1 (2022-01-12)
 
 - fix `browser` field in package.json
