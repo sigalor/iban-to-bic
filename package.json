@@ -36,6 +36,6 @@
     "xlsx": "^0.17.5"
   },
   "dependencies": {
-    "ibantools": "^3.3.0"
+    "ibantools": "^4.1.6"
   }
 }
