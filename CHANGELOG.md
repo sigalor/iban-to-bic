@@ -1,3 +1,9 @@
+# 1.2.3 (2022-09-28)
+
+- updated to ibantools@4
+- fixed generator for Luxembourg
+- updated datasets
+
 # 1.2.2 (2022-03-15)
 
 - updated datasets
