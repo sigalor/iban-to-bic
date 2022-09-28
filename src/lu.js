@@ -18,14 +18,14 @@ async function getWorksheet() {
   const links = document.getElementsByTagName('a');
   for (let i = 0; i < links.length; i++) {
     const currUrl = links[i].getAttribute('href');
-    if (currUrl.includes('IBAN_BIC_CODES_LUX_') && currUrl.endsWith('.xlsx')) {
+    if (currUrl.includes('Luxembourg Register of IBAN-BIC Codes') && currUrl.endsWith('.xlsx')) {
       url = currUrl;
       break;
     }
   }
-  
+
   if (url.startsWith('/') && !url.startsWith('//')) {
-	  url = 'https://abbl.lu' + url;
+    url = 'https://abbl.lu' + url;
   }
 
   return downloadXLSX(url, 'Organizations');
