@@ -6,10 +6,10 @@
 
 /**
  * Validation, extraction and creation of IBAN, BBAN, BIC/SWIFT numbers plus some other helpful stuff
- * @packageDocumentation
+ * @package Documentation
  * @author Saša Jovanić
  * @module ibantools
- * @version 3.3.1
+ * @version 4.1.6
  * @license MPL-2.0
  * @preferred
  */
