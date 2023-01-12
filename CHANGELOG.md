@@ -1,3 +1,8 @@
+# 1.2.4 (2023-01-12)
+
+- updated NPM dependencies
+- updated datasets
+
 # 1.2.3 (2022-09-28)
 
 - updated to ibantools@4
