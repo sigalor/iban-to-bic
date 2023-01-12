@@ -21,13 +21,13 @@ Iban-to-Bic is really simple to use inside a browser. You can either pull the pa
 or you can just use it from a CDN like this:
 
 ```
-<script type="text/javascript" src="https://unpkg.com/iban-to-bic@1.2.0/dist/iban-to-bic.js">
+<script type="text/javascript" src="https://unpkg.com/iban-to-bic@latest/dist/iban-to-bic.js">
 ```
 
 Or
 
 ```
-<script type="text/javascript" src="https://cdn.jsdeliver.com/npm/iban-to-bic@1.2.0/dist/iban-to-bic.js">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/iban-to-bic@latest/dist/iban-to-bic.js">
 ```
 
 And then just invoke it like this:
