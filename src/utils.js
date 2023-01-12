@@ -1,7 +1,7 @@
 const assert = require('assert');
 const path = require('path');
 const fs = require('fs-extra');
-const fetch = require('node-fetch');
+const fetch = require('node-fetch-commonjs');
 const xlsx = require('xlsx');
 const { JSDOM } = require('jsdom');
 const ibantools = require('ibantools');

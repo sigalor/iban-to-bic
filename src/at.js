@@ -1,5 +1,5 @@
 const assert = require('assert');
-const fetch = require('node-fetch');
+const fetch = require('node-fetch-commonjs');
 const iconv = require('iconv-lite');
 const neatCsv = require('neat-csv');
 
