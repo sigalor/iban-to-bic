@@ -1,3 +1,8 @@
+# 1.3.0 (2023-01-31)
+
+- added datasets for Spain and France
+- updated datasets
+
 # 1.2.4 (2023-01-12)
 
 - updated NPM dependencies
