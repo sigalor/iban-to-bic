@@ -5,6 +5,8 @@ const fetch = require('node-fetch-commonjs');
 const xlsx = require('xlsx');
 const { JSDOM } = require('jsdom');
 const ibantools = require('ibantools');
+const neatCsv = require('neat-csv');
+const iconv = require('iconv-lite');
 
 // maps column index starting at 0 to A,...,Z,AA,AB,...,ZY,ZZ
 function columnCode(col) {
@@ -44,10 +46,31 @@ async function downloadJSDOM(url) {
   return new JSDOM(await (await fetch(url)).text()).window.document;
 }
 
+async function downloadCSV(url, options, encoding, linesModifier) {
+  const fetchRes = await fetch(url);
+  let text;
+  if (encoding) {
+    text = iconv.decode(await fetchRes.buffer(), encoding);
+  } else {
+    text = await fetchRes.text();
+  }
+  text = text.split('\r').join('');
+  if (linesModifier) text = linesModifier(text.split('\n')).join('\n');
+  return neatCsv(text, options);
+}
+
 function assertTableHead(worksheet, row, values) {
   for (let i = 0; i < values.length; i++) {
     assert.strictEqual(getCellValue(worksheet, i, row), values[i]);
   }
 }
 
-module.exports = { columnCode, getCellValue, writeOutputs, downloadXLSX, downloadJSDOM, assertTableHead };
+module.exports = {
+  columnCode,
+  getCellValue,
+  writeOutputs,
+  downloadXLSX,
+  downloadJSDOM,
+  downloadCSV,
+  assertTableHead,
+};

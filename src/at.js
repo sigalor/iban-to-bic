@@ -1,19 +1,17 @@
 const assert = require('assert');
-const fetch = require('node-fetch-commonjs');
-const iconv = require('iconv-lite');
-const neatCsv = require('neat-csv');
 
-const { writeOutputs } = require('./utils');
+const { writeOutputs, downloadCSV } = require('./utils');
 
 module.exports = async () => {
-  const csvLines = iconv
-    .decode(
-      await (await fetch('https://www.oenb.at/docroot/downloads_observ/sepa-zv-vz_gesamt.csv')).buffer(),
-      'iso-8859-1',
-    )
-    .split('\r\n');
-  while (!csvLines[0].startsWith('Kennzeichen;')) csvLines.splice(0, 1);
-  let banks = await neatCsv(csvLines.join('\n'), { separator: ';' });
+  let banks = await downloadCSV(
+    'https://www.oenb.at/docroot/downloads_observ/sepa-zv-vz_gesamt.csv',
+    { separator: ';' },
+    'iso-8859-1',
+    lines => {
+      while (!lines[0].startsWith('Kennzeichen;')) lines.splice(0, 1);
+      return lines;
+    },
+  );
 
   // filter by allowed sectors
   const allowedSectors = ['Raiffeisen', 'Aktienbanken', '§ 9 Institute', 'Sparkassen', 'Volksbanken'];
