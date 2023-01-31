@@ -17,8 +17,7 @@ const bic = ibanToBic('DE51500105179975341634');
 
 ## Usage in the browser
 
-Iban-to-Bic is really simple to use inside a browser. You can either pull the package from npm and build it with your favorite packaging tool,
-or you can just use it from a CDN like this:
+iban-to-bic is really simple to use inside a browser. You can either pull the package from npm and build it with your favorite packaging tool or you can use it from a CDN like this:
 
 ```
 <script type="text/javascript" src="https://unpkg.com/iban-to-bic@latest/dist/iban-to-bic.js">
@@ -30,7 +29,7 @@ Or
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/iban-to-bic@latest/dist/iban-to-bic.js">
 ```
 
-And then just invoke it like this:
+And then invoke it like this:
 
 ```
 <script type="text/javascript">
