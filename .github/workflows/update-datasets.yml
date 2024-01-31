@@ -1,0 +1,50 @@
+name: "Update BIC/IBAN datasets"
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    outputs:
+      pull-request-number:
+        value: ${{ jobs.update-bic-iban-datasets.outputs.pull-request-number }}
+      pull-request-url:
+        value: ${{ jobs.update-bic-iban-datasets.outputs.pull-request-url }}
+jobs:
+  update-bic-iban-datasets:
+    runs-on: ubuntu-latest
+    outputs:
+      pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+      pull-request-url: ${{ steps.cpr.outputs.pull-request-url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install NPM dependencies
+        run: npm install
+
+      - name: Update json files in datasets & datasets-extended folders
+        run: npm run generate
+
+      - name: Create pull request
+        id: cpr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GIT_CHECKOUT_TOKEN }}
+          commit-message: Updated BIC/IBAN datasets.
+          committer: GitHub Actions <github-actions@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          signoff: false
+          base: main
+          branch: task/update-datasets
+          title: '✨ Updated BIC/IBAN datasets'
+          body: |
+            ### 📝 Created by GitHUb Action Job
+            - ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          labels: |
+            automated pr
+          draft: false
+      
+      - name: Check outputs
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+          echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
