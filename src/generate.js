@@ -5,6 +5,14 @@ const frEs = require('./fr-es');
 const lu = require('./lu');
 const nl = require('./nl');
 
-(async () => {
-  await Promise.all([at(), be(), de(), frEs(), lu(), nl()]);
-})();
+async function generate() {
+  return Promise.all([at(), be(), de(), frEs(), lu(), nl()]);
+}
+
+if (module.parent) {
+  module.exports = generate;
+} else {
+  (async () => {
+    await generate();
+  })();
+}

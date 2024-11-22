@@ -1,5 +1,6 @@
 const ibantools = require('ibantools');
 const datasets = require('./datasets');
+const generateFiles = require('./src/generate');
 
 module.exports = {
   ibanIsValid(iban) {
@@ -11,7 +12,7 @@ module.exports = {
     if (!ibantools.isValidIBAN(iban)) return;
 
     const country = iban.slice(0, 2);
-    if (!datasets[country]) return;
+    if (!datasets.hasCountry(country)) return;
 
     // see https://en.wikipedia.org/wiki/International_Bank_Account_Number#IBAN_formats_by_country
     let bankCode;
@@ -24,6 +25,10 @@ module.exports = {
     else if (country === 'NL') bankCode = iban.substr(4, 4);
     if (!bankCode) return;
 
-    return datasets[country][bankCode];
+    return datasets.getData(country, bankCode);
   },
+  async generate() {
+    await generateFiles();
+    await datasets.reload();
+  }
 };

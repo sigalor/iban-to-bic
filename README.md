@@ -49,6 +49,18 @@ npm run generate
 
 For Spain and France, data directly from the European Central Bank is used, see [here](https://www.ecb.europa.eu/stats/financial_corporations/list_of_financial_institutions/html/monthly_list-MID.en.html).
 
+### programmatically update the dataset
+
+You can also update the dataset at runtime whenever you want (e.g. at start-up):
+
+```
+const { ibanToBic, generate } = require('iban-to-bic');
+
+await generate();
+
+```
+
+
 ## License
 
 MIT
