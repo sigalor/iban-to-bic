@@ -16,7 +16,7 @@ jobs:
       pull-request-url: ${{ steps.cpr.outputs.pull-request-url }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install NPM dependencies
         run: npm install
